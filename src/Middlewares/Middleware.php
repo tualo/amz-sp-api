@@ -10,12 +10,11 @@ class Middleware implements IMiddleware{
         App::use('amz-sp-api',function(){
             try{
                 if (isset($_GET['amazon_callback_uri'])){
-                    $db = App::get('session')->getDB();
+                   
                     $_SESSION['amazon_callback_uri'] = $_GET['amazon_callback_uri'];
                     $_SESSION['amazon_state'] = $_GET['amazon_state'];
                     $_SESSION['amazon_version'] = $_GET['version'];
                     $_SESSION['selling_partner_id'] = $_GET['selling_partner_id'];
-                    $_SESSION['tualo_state_for_amazon'] = $db->singleValue('select uuid() u',[],'u');
                 }
                 if (
                     isset($_SESSION['tualoapplication']) && 
@@ -23,6 +22,9 @@ class Middleware implements IMiddleware{
                     ($_SESSION['tualoapplication']['loggedIn']===true) &&
                     isset($_SESSION['amazon_callback_uri'])
                 ){
+                    $db = App::get('session')->getDB();
+                    $_SESSION['tualo_state_for_amazon'] = $db->singleValue('select uuid() u',[],'u');
+
                     $url = $_SESSION['amazon_callback_uri']
                     .'&amazon_state='.$_SESSION['amazon_state']
                     .'&state='.$_SESSION['tualo_state_for_amazon']
