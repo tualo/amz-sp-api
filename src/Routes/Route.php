@@ -1,5 +1,6 @@
 <?php
 namespace Tualo\Office\AmanzonSellerPartner\Routes;
+use Tualo\Office\AmanzonSellerPartner\JsonQueryHelper;
 use Tualo\Office\Basic\TualoApplication as App;
 use Tualo\Office\Basic\Route as BasicRoute;
 use Tualo\Office\Basic\IRoute;
@@ -18,9 +19,9 @@ class Route implements IRoute{
                     'value'=>$value
                 ]);
             }
-            
-
-            file_put_contents(dirname(App::get('tempPath')).'/info.json',json_encode($_REQUEST));
+            $url = 'https://api.amazon.com/auth/o2/token?grant_type=authorization_code&code='.$_REQUEST['spapi_oauth_code'].'&client_id='.AMZ_CLIENT_ID.'&client_secret='.AMZ_CLIENT_SECRET;
+            App::result('x', JsonQueryHelper::query($url));
+            //file_put_contents(dirname(App::get('tempPath')).'/info.json',json_encode($_REQUEST));
             App::contenttype('application/json');
         },['get','post'],false);
 
