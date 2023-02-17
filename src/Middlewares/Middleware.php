@@ -10,12 +10,12 @@ class Middleware implements IMiddleware{
         App::use('amz-sp-api',function(){
             try{
                 if (isset($_GET['amazon_callback_uri'])){
-                   
                     $_SESSION['amazon_callback_uri'] = $_GET['amazon_callback_uri'];
                     $_SESSION['amazon_state'] = $_GET['amazon_state'];
                     $_SESSION['amazon_version'] = $_GET['version'];
                     $_SESSION['selling_partner_id'] = $_GET['selling_partner_id'];
                 }
+
                 if (
                     isset($_SESSION['tualoapplication']) && 
                     isset($_SESSION['tualoapplication']['loggedIn']) && 
