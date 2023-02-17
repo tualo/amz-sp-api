@@ -31,6 +31,8 @@ class JsonQueryHelper {
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, FALSE);
         curl_setopt($ch, CURLOPT_NOBODY, FALSE);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         if ( !is_null($post) ) curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 

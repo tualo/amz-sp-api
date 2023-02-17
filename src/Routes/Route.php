@@ -19,8 +19,8 @@ class Route implements IRoute{
                     'value'=>$value
                 ]);
             }
-            $url = 'https://api.amazon.com/auth/o2/token?grant_type=authorization_code&code='.$_REQUEST['spapi_oauth_code'].'&client_id='.AMZ_CLIENT_ID.'&client_secret='.AMZ_CLIENT_SECRET;
-            App::result('x', JsonQueryHelper::query($url));
+            $url = 'https://api.amazon.com/auth/o2/token';
+            App::result('x', JsonQueryHelper::query($url,'grant_type=authorization_code&code='.$_REQUEST['spapi_oauth_code'].'&client_id='.AMZ_CLIENT_ID.'&client_secret='.AMZ_CLIENT_SECRET));
             //file_put_contents(dirname(App::get('tempPath')).'/info.json',json_encode($_REQUEST));
             App::contenttype('application/json');
         },['get','post'],false);
