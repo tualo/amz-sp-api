@@ -20,10 +20,27 @@ class Route implements IRoute{
                 ]);
             }
             $url = 'https://api.amazon.com/auth/o2/token';
-            App::result('x', JsonQueryHelper::query($url,'grant_type=authorization_code&code='.$_REQUEST['spapi_oauth_code'].'&client_id='.AMZ_CLIENT_ID.'&client_secret='.AMZ_CLIENT_SECRET));
+            $data = JsonQueryHelper::query($url,'grant_type=authorization_code&code='.$_REQUEST['spapi_oauth_code'].'&client_id='.AMZ_CLIENT_ID.'&client_secret='.AMZ_CLIENT_SECRET);
+
+            $db->direct('insert into amazon_seller_partner_api (`keyname`,`value`) values ({keyname},{value}) on duplicate key update `value`=values(`value`)',
+            [
+                'keyname'=>'access_token',
+                'value'=>$data['access_token']
+            ]);
+            $db->direct('insert into amazon_seller_partner_api (`keyname`,`value`) values ({keyname},{value}) on duplicate key update `value`=values(`value`)',
+            [
+                'keyname'=>'refresh_token',
+                'value'=>$data['refresh_token']
+            ]);
+            $db->direct('insert into amazon_seller_partner_api (`keyname`,`value`) values ({keyname},{value}) on duplicate key update `value`=values(`value`)',
+            [
+                'keyname'=>'token_type',
+                'value'=>$data['token_type']
+            ]);
             //file_put_contents(dirname(App::get('tempPath')).'/info.json',json_encode($_REQUEST));
             App::contenttype('application/json');
         },['get','post'],false);
+
 
 
     }

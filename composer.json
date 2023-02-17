@@ -16,5 +16,7 @@
         "files": ["src/functions.php"]
     },
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "jlevers/selling-partner-api": "^5.5"
+    }
 }
