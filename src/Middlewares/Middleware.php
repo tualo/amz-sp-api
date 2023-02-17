@@ -7,19 +7,23 @@ use Tualo\Office\Basic\IMiddleware;
 class Middleware implements IMiddleware{
     public static function register(){
         
-        App::use('skeleton_time',function(){
+        App::use('amz-sp-api',function(){
             try{
-                
-                if(!isset($_SESSION['skeleton_time']))$_SESSION['skeleton_time']=[];
-                if(!isset($_SESSION['skeleton_time_loggedIn']))$_SESSION['skeleton_time_loggedIn']=[];
-                if (count($_SESSION['skeleton_time'])>10) $_SESSION['skeleton_time']=[];
-                if (count($_SESSION['skeleton_time_loggedIn'])>10) $_SESSION['skeleton_time_loggedIn']=[];
-                
-                $_SESSION['skeleton_time'][]=date('Y-m-d H:i:s',time());
-                if (isset($_SESSION['tualoapplication']) && isset($_SESSION['tualoapplication']['loggedIn']) && ($_SESSION['tualoapplication']['loggedIn']) ){
-                    $_SESSION['skeleton_time_loggedIn'][]=date('Y-m-d H:i:s',time());
+                if (isset($_GET['amazon_callback_uri'])){
+                    $_SESSION['amazon_callback_uri'] = $_GET['amazon_callback_uri'];
                 }
-                session_commit();
+                if (
+                    isset($_SESSION['tualoapplication']) && 
+                    isset($_SESSION['tualoapplication']['loggedIn']) && 
+                    ($_SESSION['tualoapplication']['loggedIn']===true) &&
+                    isset($_SESSION['amazon_callback_uri'])
+                ){
+                    $url = $_SESSION['amazon_callback_uri'];
+                    unset($_SESSION['amazon_callback_uri']);
+                    session_commit();
+                    header('Location: '.$url);
+                    die();
+                }
                 
             }catch(\Exception $e){
                 App::set('maintanceMode','on');
