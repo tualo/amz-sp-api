@@ -20,7 +20,7 @@ class RefreshToken implements IRoute{
 
     public static function register(){
         BasicRoute::add('/amz-sp-api/refresh-token',function($matches){
-            App::result('msg', App::set('configuration') );
+            App::result('msg', App::get('configuration') );
             App::result('success', true );
             App::contenttype('application/json');
         },['get','post'],false);
