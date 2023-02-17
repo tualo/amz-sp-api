@@ -26,7 +26,7 @@ class Middleware implements IMiddleware{
                     $_SESSION['tualo_state_for_amazon'] = $db->singleValue('select uuid() u',[],'u');
 
                     $url = $_SESSION['amazon_callback_uri']
-                    .'&amazon_state='.$_SESSION['amazon_state']
+                    .'?amazon_state='.$_SESSION['amazon_state']
                     .'&state='.$_SESSION['tualo_state_for_amazon']
                     .'&version='.$_SESSION['amazon_version'];
 
