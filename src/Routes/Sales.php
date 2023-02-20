@@ -21,14 +21,14 @@ class Sales implements IRoute{
             App::result('hint', $config );
             App::result('success', false );
 
-            $amazon_config = [
+            $amazon_config = new Configuration([
                 'lwaClientId' => $config['AMZ_CLIENT_ID'],
                 'lwaClientSecret' => $config['AMZ_CLIENT_SECRET'],
                 'lwaRefreshToken' => $config['refresh_token'],
                 'awsAccessKeyId' => $config['awsAccessKeyId'],
                 'awsSecretAccessKey' => $config['awsSecretAccessKey'],
                 'endpoint' => Endpoint::EU_SANDBOX,
-            ];
+            ]);
 
             
 
