@@ -7,6 +7,7 @@ use Tualo\Office\Basic\IRoute;
 use SellingPartnerApi\Configuration;
 use SellingPartnerApi\Endpoint;
 use SellingPartnerApi\Api\SellersV1Api as SellersApi;
+use SellingPartnerApi\Api\FinancesV0Api;
 
 class Financial implements IRoute{
     
@@ -38,7 +39,7 @@ class Financial implements IRoute{
                 $financial_event_group_started_after = null;
                 $next_token = null;
 
-                $apiInstance = new SellingPartnerApi\Api\FinancesV0Api($config);
+                $apiInstance = new FinancesV0Api($config);
                 try {
                     $result = $apiInstance->listFinancialEventGroups($max_results_per_page, $financial_event_group_started_before, $financial_event_group_started_after, $next_token);
                     
