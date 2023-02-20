@@ -20,7 +20,11 @@ class Route implements IRoute{
                 ]);
             }
             $url = 'https://api.amazon.com/auth/o2/token';
-            $data = JsonQueryHelper::query($url,'grant_type=authorization_code&code='.$_REQUEST['spapi_oauth_code'].'&client_id='.AMZ_CLIENT_ID.'&client_secret='.AMZ_CLIENT_SECRET);
+//            $data = JsonQueryHelper::query($url,'grant_type=authorization_code&code='.$_REQUEST['spapi_oauth_code'].'&client_id='.AMZ_CLIENT_ID.'&client_secret='.AMZ_CLIENT_SECRET);
+
+            $data = JsonQueryHelper::query($url,'grant_type=client_credentials&scope=sellingpartnerapi::migration&client_id='.AMZ_CLIENT_ID.'&client_secret='.AMZ_CLIENT_SECRET);
+            print_r($data);
+            exit();
 
             if (isset($data['access_token'])){
                 $db->direct('insert into amazon_seller_partner_api (`keyname`,`value`) values ({keyname},{value}) on duplicate key update `value`=values(`value`)',
