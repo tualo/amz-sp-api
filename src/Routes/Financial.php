@@ -33,7 +33,8 @@ class Financial implements IRoute{
             
             $api = new SellersApi($amazon_config);
             try {
-                // $result = $api->getMarketplaceParticipations();
+                $result = $api->getMarketplaceParticipations();
+                /*
                 $max_results_per_page = 100;
                 $financial_event_group_started_before = null;
                 $financial_event_group_started_after = null;
@@ -47,6 +48,7 @@ class Financial implements IRoute{
                 } catch (\Exception $e) {
                     echo 'Exception when calling FinancesV0Api->listFinancialEventGroups: ', $e->getMessage(), PHP_EOL;
                 }
+                */
 
             } catch (\Exception $e) {
                 echo 'Exception when calling SellersApi->getMarketplaceParticipations: ', $e->getMessage(), PHP_EOL;
