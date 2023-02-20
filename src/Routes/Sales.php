@@ -38,7 +38,7 @@ class Sales implements IRoute{
                 [
                     $config['selling_partner_id']
                 ],
-                '2018-09-01T00:00:00-07:00--2018-09-04T00:00:00-07:00',
+                '2023-01-01T00:00:00-07:00--2023-01-31T00:00:00-07:00',
                 'Hour',
                 $granularity_time_zone = null,
                 $buyer_type = 'All',
