@@ -30,7 +30,7 @@ class RefreshToken implements IRoute{
             $amazon_config = [
                 'lwaClientId' => $config['AMZ_CLIENT_ID'],
                 'lwaClientSecret' => $config['AMZ_CLIENT_SECRET'],
-                'lwaRefreshToken' => '',
+                'lwaRefreshToken' => $config['refresh_token'],
                 'awsAccessKeyId' => $config['awsAccessKeyId'],
                 'awsSecretAccessKey' => $config['awsSecretAccessKey'],
                 'endpoint' => Endpoint::EU,
