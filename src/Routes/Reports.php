@@ -26,6 +26,7 @@ class ReportsRoute implements IRoute{
                 'awsAccessKeyId' => $config['awsAccessKeyId'],
                 'awsSecretAccessKey' => $config['awsSecretAccessKey'],
                 'endpoint' => Endpoint::EU,
+                "roleArn" => $config['roleArn']
             ]);
 
             
