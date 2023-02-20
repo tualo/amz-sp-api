@@ -29,6 +29,8 @@ class Sales implements IRoute{
                 'awsSecretAccessKey' => $config['awsSecretAccessKey'],
                 'endpoint' => Endpoint::EU,
             ]);
+            $amazon_config->setDebug(true);
+            $config->setDebugFile('./amazon_debug.log');
 
             
 
