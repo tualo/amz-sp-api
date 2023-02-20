@@ -45,7 +45,7 @@ class JsonQueryHelper {
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
         curl_close($ch);
-        if (!in_array($httpCode200,[200,403,404,400]){
+        if (!in_array($httpCode200,[200,403,404,400])){
             self::$last_error_nr = $httpCode;
             self::$last_error_message = "Backend server problems";
             syslog(LOG_ALERT, "httpCode $httpCode query $url ");
