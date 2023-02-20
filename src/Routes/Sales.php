@@ -27,7 +27,7 @@ class Sales implements IRoute{
                 'lwaRefreshToken' => $config['refresh_token'],
                 'awsAccessKeyId' => $config['awsAccessKeyId'],
                 'awsSecretAccessKey' => $config['awsSecretAccessKey'],
-                'endpoint' => Endpoint::EU_SANDBOX,
+                'endpoint' => Endpoint::EU,
             ]);
 
             
