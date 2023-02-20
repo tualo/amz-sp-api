@@ -38,7 +38,7 @@ class Financial implements IRoute{
                 $financial_event_group_started_after = null;
                 $next_token = null;
                 // $result = $api->getMarketplaceParticipations();
-                $result = $apiInstance->listFinancialEventGroups($max_results_per_page, $financial_event_group_started_before, $financial_event_group_started_after, $next_token);
+                $result = $api->listFinancialEventGroups($max_results_per_page, $financial_event_group_started_before, $financial_event_group_started_after, $next_token);
                 /*
                 
 
