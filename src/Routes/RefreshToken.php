@@ -38,22 +38,23 @@ class RefreshToken implements IRoute{
             ];
 
             $auth = new Authentication($amazon_config); 
-            if (count($auth)==2){
+            $data = $auth->requestLWAToken();
+            if (count($data)==2){
                 
                 $db->direct('insert into amazon_seller_partner_api (`keyname`,`value`) values ({keyname},{value}) on duplicate key update `value`=values(`value`)',
                 [
                     'keyname'=>'access_token',
-                    'value'=>$auth[0]
+                    'value'=>$data[0]
                 ]);
                 $db->direct('insert into amazon_seller_partner_api (`keyname`,`value`) values ({keyname},{value}) on duplicate key update `value`=values(`value`)',
                 [
                     'keyname'=>'access_token_valid_until',
-                    'value'=>$auth[1]
+                    'value'=>$data[1]
                 ]);
 
                 App::result('success', true );
             }
-            App::result('auth',$auth->requestLWAToken());
+            App::result('auth',$data);
 
             App::contenttype('application/json');
         },['get','post'],false);
