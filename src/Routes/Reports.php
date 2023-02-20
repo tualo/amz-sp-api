@@ -12,7 +12,7 @@ use SellingPartnerApi\Api\ReportsV20210630Api as Reports;
 class Financial implements IRoute{
     
     public static function register(){
-        BasicRoute::add('/amz-sp-api/list-financial-groups',function($matches){
+        BasicRoute::add('/amz-sp-api/reports',function($matches){
             $db = App::get('session')->getDB();
             $config = (App::get('configuration'))['amazon'] + $db->directMap('select `keyname`,`value` from amazon_seller_partner_api',[],'keyname','value');
 
