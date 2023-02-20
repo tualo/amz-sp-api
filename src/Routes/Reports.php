@@ -9,7 +9,7 @@ use SellingPartnerApi\Endpoint;
 use SellingPartnerApi\Api\SellersV1Api as SellersApi;
 use SellingPartnerApi\Api\ReportsV20210630Api as Reports;
 
-class Reports implements IRoute{
+class ReportsRoute implements IRoute{
     
     public static function register(){
         BasicRoute::add('/amz-sp-api/reports',function($matches){
