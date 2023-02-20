@@ -30,7 +30,7 @@ class Sales implements IRoute{
                 'endpoint' => Endpoint::EU,
             ]);
             $amazon_config->setDebug(true);
-            $config->setDebugFile('./amazon_debug.log');
+            $amazon_config->setDebugFile('./amazon_debug.log');
 
             
 
