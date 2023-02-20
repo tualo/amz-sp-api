@@ -4,7 +4,9 @@ use Tualo\Office\AmanzonSellerPartner\JsonQueryHelper;
 use Tualo\Office\Basic\TualoApplication as App;
 use Tualo\Office\Basic\Route as BasicRoute;
 use Tualo\Office\Basic\IRoute;
+use SellingPartnerApi\Configuration;
 use SellingPartnerApi\Authentication;
+use SellingPartnerApi\Endpoint;
 
 class RefreshToken implements IRoute{
     /*
@@ -34,7 +36,7 @@ class RefreshToken implements IRoute{
                 'endpoint' => Endpoint::EU,
             ];
 
-            $auth = SellingPartnerApi::Authentication($amazon_config); 
+            $auth = new Authentication($amazon_config); 
             App::result('auth',$auth->requestLWAToken());
 
             App::contenttype('application/json');
