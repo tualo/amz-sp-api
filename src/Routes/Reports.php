@@ -29,10 +29,10 @@ class ReportsRoute implements IRoute{
                 "roleArn" => $config['roleArn']
             ]);
 
-            
+            /*
             SellingPartnerApi\Api\AuthorizationV1Api
             getAuthorizationCode($selling_partner_id=$config['selling_partner_id'], $developer_id, $mws_auth_token)
-            
+            */
             $api = new Reports($amazon_config);
             try {
                 $max_results_per_page = 100;
