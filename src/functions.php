@@ -6,3 +6,4 @@ require_once "Routes/RefreshToken.php";
 require_once "Routes/Sales.php";
 require_once "Routes/Financial.php";
 require_once "Routes/Reports.php";
+require_once "Routes/RDT.php";
