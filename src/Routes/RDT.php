@@ -40,16 +40,14 @@ class RDT implements IRoute
             
             try {
                 $result = $apiInstance->createRestrictedDataToken($body);
-                if (isset($result['restrictedDataToken'])){
-                    foreach($restricted_resources as $path){
-                        $db->direct('insert into amazon_seller_partner_rdt_token (`path`,`token`,`valid_until`) 
-                        values ({path},{token},{valid_until}) on duplicate key update `token`=values(`token`),`valid_until`=values(`valid_until`)',
-                        [
-                            'path'=>$path,
-                            'token'=>$result['restrictedDataToken'],
-                            'expiresIn'=> time()+intval($result['expiresIn'])
-                        ]);
-                    }
+                foreach($restricted_resources as $path){
+                    $db->direct('insert into amazon_seller_partner_rdt_token (`path`,`token`,`valid_until`) 
+                    values ({path},{token},{valid_until}) on duplicate key update `token`=values(`token`),`valid_until`=values(`valid_until`)',
+                    [
+                        'path'=>$path,
+                        'token'=>$result->getRestrictedDataToken(),
+                        'expiresIn'=> time()+intval($result['expiresIn'])
+                    ]);
                 }
                 App::result('result', $result );
             } catch (\Exception $e) {
