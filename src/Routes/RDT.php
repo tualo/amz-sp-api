@@ -46,7 +46,7 @@ class RDT implements IRoute
                     [
                         'path'=>$path,
                         'token'=>$result->getRestrictedDataToken(),
-                        'expiresIn'=> time()+intval($result['expiresIn'])
+                        'valid_until'=> time()+intval($result['expiresIn'])
                     ]);
                 }
                 App::result('result', $result );
