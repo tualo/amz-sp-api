@@ -30,17 +30,27 @@ class RDT implements IRoute
                 'awsSecretAccessKey' => $config['awsSecretAccessKey'],
                 'endpoint' => Endpoint::EU
             ]);
+            $restricted_resources = ['/orders/v0/orders'];
 
             $apiInstance = new TokensV20210301Api($amazon_config);
             $body = new CreateRestrictedDataTokenRequest([
-                'restricted_resources'=>[
-                    '/orders/v0/orders'
-                ]
+                'restricted_resources'=>$restricted_resources
             ]);
             // \SellingPartnerApi\Model\TokensV20210301\CreateRestrictedDataTokenRequest | The restricted data token request details.
             
             try {
                 $result = $apiInstance->createRestrictedDataToken($body);
+                if (isset($result['restrictedDataToken'])){
+                    foreach($restricted_resources as $path){
+                        $db->direct('insert into amazon_seller_partner_rdt_token (`path`,`token`,`valid_until`) 
+                        values ({path},{token},{valid_until}) on duplicate key update `token`=values(`token`),`valid_until`=values(`valid_until`)',
+                        [
+                            'path'=>$path,
+                            'token'=>$result['restrictedDataToken'],
+                            'expiresIn'=> time()+intval($result['expiresIn'])
+                        ]);
+                    }
+                }
                 App::result('result', $result );
             } catch (\Exception $e) {
                 echo 'Exception when calling TokensV20210301Api->createRestrictedDataToken: ', $e->getMessage(), PHP_EOL;
