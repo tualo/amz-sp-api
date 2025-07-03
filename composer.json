@@ -13,10 +13,9 @@
         "psr-4": {
             "Tualo\\Office\\AmanzonSellerPartner\\": "src/"
         },
-        "files": ["src/functions.php"]
+        "files": [
+            "src/functions.php"
+        ]
     },
-    "minimum-stability": "dev",
-    "require": {
-        "jlevers/selling-partner-api": "^5.5"
-    }
+    "minimum-stability": "dev"
 }
