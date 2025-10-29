@@ -12,7 +12,7 @@ use SellingPartnerApi\Api\OrdersV0Api;
 use SellingPartnerApi\Model\TokensV20210301\CreateRestrictedDataTokenRequest;
 
 
-class RDT implements IRoute
+class RDT extends \Tualo\Office\Basic\RouteWrapper
 {
 
     public static function register()

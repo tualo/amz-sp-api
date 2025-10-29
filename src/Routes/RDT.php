@@ -12,7 +12,7 @@ use SellingPartnerApi\Api\TokensV20210301Api;
 use SellingPartnerApi\Model\TokensV20210301\CreateRestrictedDataTokenRequest;
 
 
-class RDT implements IRoute
+class RDT extends \Tualo\Office\Basic\RouteWrapper
 {
 
     public static function register()
@@ -20,7 +20,7 @@ class RDT implements IRoute
         BasicRoute::add('/amz-sp-api/rdt', function ($matches) {
             // See README for more information on the Configuration object's options
             $db = App::get('session')->getDB();
-            $config = (App::get('configuration'))['amazon'] + $db->directMap('select `keyname`,`value` from amazon_seller_partner_api',[],'keyname','value');
+            $config = (App::get('configuration'))['amazon'] + $db->directMap('select `keyname`,`value` from amazon_seller_partner_api', [], 'keyname', 'value');
 
             $amazon_config = new Configuration([
                 'lwaClientId' => $config['AMZ_CLIENT_ID'],
@@ -34,22 +34,24 @@ class RDT implements IRoute
 
             $apiInstance = new TokensV20210301Api($amazon_config);
             $body = new CreateRestrictedDataTokenRequest([
-                'restricted_resources'=>$restricted_resources
+                'restricted_resources' => $restricted_resources
             ]);
             // \SellingPartnerApi\Model\TokensV20210301\CreateRestrictedDataTokenRequest | The restricted data token request details.
-            
+
             try {
                 $result = $apiInstance->createRestrictedDataToken($body);
-                foreach($restricted_resources as $path){
-                    $db->direct('insert into amazon_seller_partner_rdt_token (`path`,`token`,`valid_until`) 
+                foreach ($restricted_resources as $path) {
+                    $db->direct(
+                        'insert into amazon_seller_partner_rdt_token (`path`,`token`,`valid_until`) 
                     values ({path},{token},{valid_until}) on duplicate key update `token`=values(`token`),`valid_until`=values(`valid_until`)',
-                    [
-                        'path'=>$path,
-                        'token'=>$result->getRestrictedDataToken(),
-                        'valid_until'=> date('Y-m-d H:i:s',time()+intval($result->getExpiresIn()))
-                    ]);
+                        [
+                            'path' => $path,
+                            'token' => $result->getRestrictedDataToken(),
+                            'valid_until' => date('Y-m-d H:i:s', time() + intval($result->getExpiresIn()))
+                        ]
+                    );
                 }
-                App::result('result', $result );
+                App::result('result', $result);
             } catch (\Exception $e) {
                 echo 'Exception when calling TokensV20210301Api->createRestrictedDataToken: ', $e->getMessage(), PHP_EOL;
             }

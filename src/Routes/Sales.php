@@ -1,5 +1,7 @@
 <?php
+
 namespace Tualo\Office\AmanzonSellerPartner\Routes;
+
 use Tualo\Office\AmanzonSellerPartner\JsonQueryHelper;
 use Tualo\Office\Basic\TualoApplication as App;
 use Tualo\Office\Basic\Route as BasicRoute;
@@ -11,15 +13,17 @@ use SellingPartnerApi\Api\SalesV1Api;
 
 
 
-class Sales implements IRoute{
-    
-    public static function register(){
-        BasicRoute::add('/amz-sp-api/sales',function($matches){
-            $db = App::get('session')->getDB();
-            $config = (App::get('configuration'))['amazon'] + $db->directMap('select `keyname`,`value` from amazon_seller_partner_api',[],'keyname','value');
+class Sales extends \Tualo\Office\Basic\RouteWrapper
+{
 
-            App::result('hint', $config );
-            App::result('success', false );
+    public static function register()
+    {
+        BasicRoute::add('/amz-sp-api/sales', function ($matches) {
+            $db = App::get('session')->getDB();
+            $config = (App::get('configuration'))['amazon'] + $db->directMap('select `keyname`,`value` from amazon_seller_partner_api', [], 'keyname', 'value');
+
+            App::result('hint', $config);
+            App::result('success', false);
 
             $amazon_config = new Configuration([
                 'lwaClientId' => $config['AMZ_CLIENT_ID'],
@@ -32,10 +36,10 @@ class Sales implements IRoute{
             $amazon_config->setDebug(true);
             $amazon_config->setDebugFile('./amazon_debug.log');
 
-            
 
-            
-            $sales = new SalesV1Api($amazon_config); 
+
+
+            $sales = new SalesV1Api($amazon_config);
             $data = $sales->getOrderMetricsRequest(
                 [
                     $config['selling_partner_id']
@@ -46,7 +50,7 @@ class Sales implements IRoute{
                 $buyer_type = 'All',
                 $fulfillment_network = null,
                 $first_day_of_week = 'monday',
-                $asin = null, 
+                $asin = null,
                 $sku = null
             );
             /*
@@ -66,9 +70,9 @@ class Sales implements IRoute{
                 App::result('success', true );
             }
             */
-            App::result('sales',$data);
+            App::result('sales', $data);
 
             App::contenttype('application/json');
-        },['get','post'],false);
+        }, ['get', 'post'], false);
     }
 }

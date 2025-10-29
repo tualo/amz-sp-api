@@ -1,21 +1,22 @@
 {
-    "name": "tualo/amz-sp-api",
-    "description": "tualo - amazon seller partner api",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Thomas Hoffmann",
-            "email": "thomas.hoffmann@tualo.de"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "Tualo\\Office\\AmanzonSellerPartner\\": "src/"
-        },
-        "files": [
-            "src/functions.php"
-        ]
+  "name": "tualo/amz-sp-api",
+  "description": "tualo - amazon seller partner api",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Thomas Hoffmann",
+      "email": "thomas.hoffmann@tualo.de"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Tualo\\Office\\AmanzonSellerPartner\\": "src/"
     },
-    "minimum-stability": "dev"
+    "files": [
+      "src/functions.php"
+    ]
+  },
+  "minimum-stability": "dev",
+  "version": "1.0.1"
 }
